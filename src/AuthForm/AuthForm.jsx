@@ -141,11 +141,15 @@ const AuthForm = () => {
                   </label>
                 </div>
 
-                <div className="mb-6 text-right">
-                  <a href="#" className="text-blue-500 hover:underline text-sm">
-                    Forgot Password?
-                  </a>
-                </div>
+                 <div className="mb-6 text-right">
+      <button
+        type="button"
+        onClick={() => navigate("/reset-password")}
+        className="text-blue-500 hover:underline text-sm focus:outline-none"
+      >
+        Forgot Password?
+      </button>
+    </div>
               </>
             )}
 

@@ -1,12 +1,17 @@
-import React from "react";
 import Swal from "sweetalert2";
 import { deleteCurrentUserAndData } from "../../AuthServices/AuthService";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthServices/AuthContext";
+import ThemeToggleButton from "../../Theme/ThemeToggleButton";
+import CurrencySelector from "../../CurrencySelector/CurrencySelector";
 
-const SettingsModal = ({ onClose }) => {
+const SettingsModal = ({ onClose, }) => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
+
+  const handleChangePassword = () => {
+    navigate("/change-password"); 
+  };
 
   const handleDeleteAccount = async () => {
     const confirm = await Swal.fire({
@@ -33,29 +38,29 @@ const SettingsModal = ({ onClose }) => {
         navigate("/");
       } catch (error) {
         console.error(error);
-        if (error.code === "auth/requires-recent-login") {
-          Swal.fire({
-            icon: "error",
-            title: "Session Expired",
-            text: "Please log in again before deleting your account.",
-            width: "300px",
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: error.message,
-            width: "300px",
-          });
-        }
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+          width: "300px",
+        });
       }
     }
   };
 
+ 
+
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black/40 z-50">
-      <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md relative">
-        <h2 className="text-2xl font-bold mb-6 text-center">Settings</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md relative">
+        
+        <h2 className="text-2xl font-bold mb-6 text-center text-black dark:text-white">Settings</h2>
+         <button
+          onClick={handleChangePassword}
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded font-semibold mb-4 transition"
+        >
+          Change Password
+        </button>
 
         <button
           onClick={handleDeleteAccount}
@@ -64,9 +69,11 @@ const SettingsModal = ({ onClose }) => {
           Delete Account
         </button>
 
+        <CurrencySelector />
+
         <button
           onClick={onClose}
-          className="w-full bg-gray-500 hover:bg-gray-600 text-white py-2 rounded font-semibold transition"
+          className="w-full bg-gray-500 hover:bg-gray-600 text-white py-2 rounded font-semibold transition mt-4"
         >
           Close
         </button>

@@ -1,21 +1,34 @@
-import { FaRupeeSign } from "react-icons/fa";
+import { FaRupeeSign, FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 import CountUp from "react-countup";
+import { useCurrency } from "../../CurrencySelector/CurrencyContext";
+
+const currencyIcons = {
+  INR: <FaRupeeSign />,
+  USD: <FaDollarSign />,
+  EUR: <FaEuroSign />,
+  GBP: <FaPoundSign />,
+};
 
 const Card = ({ text, total, textColor = "text-green-500" }) => {
+  const { currency, convert } = useCurrency();
+  const convertedAmount = convert(total);
+  console.log("Converted Amount:", convertedAmount);
+
+
   return (
     <div className={`bg-gray-800 ${textColor} rounded p-6 text-center shadow`}>
       <div className="text-3xl font-bold flex justify-center items-center mb-2">
-        <FaRupeeSign />
+        {currencyIcons[currency]}
       </div>
       <div className="text-gray-300 text-lg mb-1">{text}</div>
       <div className="text-2xl font-bold flex justify-center items-center gap-1">
-        <FaRupeeSign className="text-base mt-1" />
+        {currencyIcons[currency]}
         <CountUp
           start={0}
-          end={total}
+          end={convertedAmount}
           duration={2}
           separator=","
-          decimals={0}
+          decimals={2}
         />
       </div>
     </div>

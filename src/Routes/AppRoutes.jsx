@@ -4,6 +4,8 @@ import Transactions from "../Pages/Transaction";
 import Category from "../Pages/Category";
 import AuthForm from "../AuthForm/AuthForm";
 import ProtectedRoute from "./ProtectedRoutes";
+import ChangePasswordForm from "../AuthServices/ChangePassword";
+import ResetPasswordForm from "../AuthServices/ResetPasswordForm";
 
 
 
@@ -27,6 +29,19 @@ const AppRoutes = () => (
       <Category />
     </ProtectedRoute>
     } />
+
+    <Route path="change-password" element={
+      <ProtectedRoute>
+      <ChangePasswordForm />
+    </ProtectedRoute>
+    } />
+    <Route path="reset-password" element={
+      
+      <ResetPasswordForm />
+    
+    } />
+
   </Routes>
+  
 );
 export default AppRoutes;

@@ -3,13 +3,15 @@ import { fetchAllTransactions } from "../../API/Firebase";
 import { useAuth } from "../../AuthServices/AuthContext";
 import SearchComponent from "../Filter/SearchComponent";
 import Table from "../Tables/MainTable"
-import { useState, useEffect } from "react";
+import { useState, useEffect, } from "react";
 
 
-const HomeTable = () => {
+const HomeTable = ({ componentRef }) => {
   const [data, setData] = useState([]);
   const [allTransactions, setAllTransactions] = useState([]);
   const {currentUser} = useAuth();
+
+  
 
 
   const handleFetchAllData = async () => {
@@ -74,8 +76,9 @@ const HomeTable = () => {
            onSearchByKeywod={handleSearchByKeyword} 
            getDateItems={getDateItems}/>
       </div>
-
-      <Table transactions={data} />
+      
+ <div ref={componentRef}>
+      <Table transactions={data} /></div>
     </div>
   );
 };

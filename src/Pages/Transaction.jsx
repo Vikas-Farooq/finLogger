@@ -1,5 +1,5 @@
 import { fetchAllTransactions, deleteData } from "../API/Firebase";
-import { useState, useEffect } from 'react';
+import { useState, useEffect,  } from 'react';
 import Modal from '../Components/Modals/PopupModal';
 import Table from '../Components/Tables/MainTable';
 import Swal from 'sweetalert2';
@@ -9,18 +9,17 @@ import Header from "../Components/Layouts/Header";
 import { useAuth } from "../AuthServices/AuthContext";
 
 
-
-
 const TransactionListTable = () => {
   const [data, setData] = useState([]);
   const [modalMode, setModalMode] = useState("add");
   const [modalOpen, setModalOpen] = useState(false);
   const [editModal, setEditModal] = useState(null);
-  const [type, setType] = useState("");
-
-  const {currentUser} = useAuth();
 
 
+
+  const { currentUser } = useAuth();
+
+  
   const handleEdit = (transaction) => {
     setEditModal(transaction);
     setModalOpen(true);
@@ -28,9 +27,8 @@ const TransactionListTable = () => {
   };
 
   const handleFetchAllData = async () => {
-    if(!currentUser)
-    {
-      alert("Please login")
+    if (!currentUser) {
+      alert("Please login");
       return;
     }
     const allTransactions = await fetchAllTransactions(currentUser.uid);
@@ -68,7 +66,6 @@ const TransactionListTable = () => {
 
   const handleAddIncomeClick = () => {
     setEditModal(null);
-    setType("income");
     setModalOpen(true);
     setModalMode("add");
   };
@@ -94,15 +91,19 @@ const TransactionListTable = () => {
                 </button>
               </div>
 
-              <div className="overflow-x-auto">
-                <Table
-                  transactions={data}
-                  showActions={true}
-                  onDelete={handleDelete}
-                  refreshData={handleFetchAllData}
-                  mode={modalMode}
-                  onEdit={handleEdit}
-                />
+              
+
+              
+                  <div className="overflow-x-auto">
+                    <Table
+                      transactions={data}
+                      showActions={true}
+                      onDelete={handleDelete}
+                      refreshData={handleFetchAllData}
+                      mode={modalMode}
+                      onEdit={handleEdit}
+                    />
+                  
               </div>
             </div>
           </div>

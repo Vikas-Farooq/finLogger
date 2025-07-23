@@ -7,8 +7,9 @@ import { logoutUser } from "../../AuthServices/AuthService";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import SettingsModal from "../Modals/SettingsModal";
+import CurrencySelector from "../../CurrencySelector/CurrencySelector";
 
-const Header = () => {
+const Header = ({ handlePrint }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const { currentUser } = useAuth();
@@ -79,6 +80,16 @@ const Header = () => {
               Settings
             </button>
 
+             <button
+              onClick={() => {
+                setOpenMenu(false);
+                handlePrint(); // Export PDF action
+              }}
+              className="w-full text-left px-5 py-3 hover:bg-green-100 transition-colors duration-200 flex items-center gap-3 text-green-600 font-semibold"
+            >
+              📄 Export Trasactions
+            </button>
+
             <button
               onClick={() => {
                 setOpenMenu(false);
@@ -94,7 +105,13 @@ const Header = () => {
       </div>
 
       {settingsOpen &&
-       <SettingsModal onClose={() => setSettingsOpen(false)} />}
+       <>
+       <SettingsModal onClose={() => setSettingsOpen(false)} />
+       
+       </>
+       }
+
+       
     </header>
   );
 };

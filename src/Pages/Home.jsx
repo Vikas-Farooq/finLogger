@@ -2,11 +2,11 @@ import Header from "../Components/Layouts/Header";
 import Sidebar from "../Components/Layouts/Sidebar";
 import Cards from "../Components/Cards/Cards";
 import IncomeExpenseCharts from "../Components/Charts/IncomeExpenseCharts";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import HomeTable from "../Components/Tables/HomeTable";
 import { fetchTotals } from "../API/Firebase";
 import { useAuth } from "../AuthServices/AuthContext";
-
+import {useReactToPrint} from 'react-to-print';
 
 const Home = () => {
   const [totalIncome, setTotalIncome] = useState(0);
@@ -14,6 +14,13 @@ const Home = () => {
   const {currentUser} = useAuth();
 
   const userId = currentUser.uid;
+
+   const componentRef = useRef(null);
+
+  const handlePrint = useReactToPrint({
+   documentTitle: 'Title',
+   contentRef: componentRef,
+})
   
 
   useEffect(() => {
@@ -73,15 +80,19 @@ const Home = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
+      <Header 
+      handlePrint={handlePrint}
+       />
 
       <div className="flex flex-1">
         <Sidebar />
-
         <main className="flex-1 p-6 bg-gray-100 overflow-y-auto">
-          <HomeTable />
-
-          <div className="flex justify-between gap-4 mt-12 w-full">
+          
+           <HomeTable
+          componentRef={componentRef}
+          />
+               
+            <div className="flex justify-between gap-4 mt-12 w-full">
             <div className="flex-1">
               <Cards text="Total Income" total={totalIncome} textColor="text-green-500" />
             </div>
