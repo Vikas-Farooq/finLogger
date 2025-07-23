@@ -55,12 +55,16 @@ const SettingsModal = ({ onClose, }) => {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md relative">
         
         <h2 className="text-2xl font-bold mb-6 text-center text-black dark:text-white">Settings</h2>
+
+         <CurrencySelector />
          <button
           onClick={handleChangePassword}
           className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded font-semibold mb-4 transition"
         >
           Change Password
         </button>
+        
+        
 
         <button
           onClick={handleDeleteAccount}
@@ -68,8 +72,6 @@ const SettingsModal = ({ onClose, }) => {
         >
           Delete Account
         </button>
-
-        <CurrencySelector />
 
         <button
           onClick={onClose}
