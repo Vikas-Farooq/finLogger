@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import Swal from "sweetalert2";
 import { deleteCurrentUserAndData } from "../../AuthServices/AuthService";
 import { useNavigate } from "react-router-dom";
@@ -5,24 +6,37 @@ import { useAuth } from "../../AuthServices/AuthContext";
 import ThemeToggleButton from "../../Theme/ThemeToggleButton";
 import CurrencySelector from "../../CurrencySelector/CurrencySelector";
 
-const SettingsModal = ({ onClose, }) => {
+const SettingsModal = ({ onClose }) => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
 
+  // Lock scroll when modal is open
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   const handleChangePassword = () => {
-    navigate("/change-password"); 
+    navigate("/change-password");
+  };
+
+  const handleContactUsForm = () => {
+    navigate("/contact-us-form");
   };
 
   const handleDeleteAccount = async () => {
     const confirm = await Swal.fire({
       title: "Delete Account?",
-      text: "This will permanently delete your account and all data. This action cannot be undone.",
+      text: "This will permanently delete your account and all saved data. This action cannot be undone. Are you sure you want to proceed?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete my account",
-      width: "350px",
+      cancelButtonText: "Cancel",
+      width: "400px",
     });
 
     if (confirm.isConfirmed) {
@@ -31,8 +45,8 @@ const SettingsModal = ({ onClose, }) => {
         await Swal.fire({
           icon: "success",
           title: "Account Deleted",
-          text: "Your account and all data have been deleted.",
-          width: "300px",
+          text: "Your account and all associated data have been permanently deleted. We’re sorry to see you go.",
+          width: "350px",
           confirmButtonColor: "#3085d6",
         });
         navigate("/");
@@ -40,45 +54,61 @@ const SettingsModal = ({ onClose, }) => {
         console.error(error);
         Swal.fire({
           icon: "error",
-          title: "Error",
-          text: error.message,
-          width: "300px",
+          title: "Deletion Failed",
+          text: error.message || "An error occurred while deleting your account. Please try again later.",
+          width: "350px",
         });
       }
     }
   };
 
- 
-
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black/40 z-50">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md relative">
-        
-        <h2 className="text-2xl font-bold mb-6 text-center text-black dark:text-white">Settings</h2>
+        <h2 className="text-2xl font-bold mb-2 text-center text-black dark:text-white">
+          Settings
+        </h2>
+        <p className="text-center text-gray-600 dark:text-gray-300 mb-6 text-sm">
+          Manage your account preferences and personalize your Money Manager experience.
+        </p>
 
-         <CurrencySelector />
-         <button
-          onClick={handleChangePassword}
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded font-semibold mb-4 transition"
-        >
-          Change Password
-        </button>
-        
-        
+        <CurrencySelector />
 
-        <button
-          onClick={handleDeleteAccount}
-          className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded font-semibold mb-4 transition"
-        >
-          Delete Account
-        </button>
+        <div className="space-y-4 mt-4">
+          <button
+            onClick={handleContactUsForm}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition"
+          >
+            Contact Us
+          </button>
 
-        <button
-          onClick={onClose}
-          className="w-full bg-gray-500 hover:bg-gray-600 text-white py-2 rounded font-semibold transition mt-4"
-        >
-          Close
-        </button>
+          <button
+            onClick={handleChangePassword}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition"
+          >
+            Change Password
+          </button>
+
+          <ThemeToggleButton />
+
+          <button
+            onClick={handleDeleteAccount}
+            className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded font-semibold transition"
+          >
+            Delete Account
+          </button>
+
+          <button
+            onClick={onClose}
+            className="w-full bg-gray-500 hover:bg-gray-600 text-white py-2 rounded font-semibold transition"
+          >
+            Close Settings
+          </button>
+        </div>
+
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-6 text-center">
+          For any assistance or feedback, please use the Contact Us option above. We’re here to support you.
+        </p>
       </div>
     </div>
   );

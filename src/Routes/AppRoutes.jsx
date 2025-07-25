@@ -6,6 +6,8 @@ import AuthForm from "../AuthForm/AuthForm";
 import ProtectedRoute from "./ProtectedRoutes";
 import ChangePasswordForm from "../AuthServices/ChangePassword";
 import ResetPasswordForm from "../AuthServices/ResetPasswordForm";
+import ContactForm from "../AuthForm/ContactUsForm";
+
 
 
 
@@ -35,6 +37,14 @@ const AppRoutes = () => (
       <ChangePasswordForm />
     </ProtectedRoute>
     } />
+
+     <Route path="contact-us-form" element={
+      <ProtectedRoute>
+      <ContactForm />
+    </ProtectedRoute>
+    } />
+
+
     <Route path="reset-password" element={
       
       <ResetPasswordForm />
