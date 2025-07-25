@@ -20,7 +20,7 @@ const ResetPasswordForm = () => {
         text: "A password reset link has been sent to your email.",
       });
 
-      navigate("/"); 
+      navigate("/");
     } catch (error) {
       console.error("Error sending password reset email:", error);
 
@@ -41,12 +41,14 @@ const ResetPasswordForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
       <form
         onSubmit={handleResetPassword}
-        className="bg-white p-6 rounded shadow-md w-full max-w-sm"
+        className="bg-white p-6 sm:p-8 rounded shadow-md w-full max-w-sm"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">Reset Password</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-center">
+          Reset Password
+        </h2>
 
         <input
           type="email"
@@ -54,7 +56,7 @@ const ResetPasswordForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full border border-gray-300 px-3 py-2 rounded mb-4"
+          className="w-full border border-gray-300 px-3 py-2 rounded mb-4 text-sm sm:text-base"
         />
 
         <button

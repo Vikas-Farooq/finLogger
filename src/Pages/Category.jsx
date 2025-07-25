@@ -7,29 +7,21 @@ import Header from "../Components/Layouts/Header";
 import { FiPlus } from "react-icons/fi";
 import { useAuth } from "../AuthServices/AuthContext";
 
-
-
 const CategoryTable = () => {
   const [categories, setCategories] = useState([]);
   const [catModal, showCatModal] = useState(false);
   const [modalMode, setModalMode] = useState("add");
   const [editModalData, setEditModalData] = useState(null);
 
-  const {currentUser}= useAuth();
-
+  const { currentUser } = useAuth();
 
   const handleFetchAllCategories = async () => {
-    if(!currentUser)
-    {
-      alert("Please login")
+    if (!currentUser) {
+      alert("Please login");
       return;
     }
     const allCategories = await fetchAllCategories(currentUser.uid);
     setCategories(allCategories);
-    // console.log(currentUser, "Current User");
-    
-    // console.log(allCategories, "All Categories");
-    
   };
 
   useEffect(() => {
@@ -77,16 +69,18 @@ const CategoryTable = () => {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 flex-col lg:flex-row">
         <Sidebar />
 
-        <main className="flex-1 p-6 bg-gray-100 overflow-y-auto">
+        <main className="flex-1 p-4 sm:p-6 bg-gray-100 overflow-y-auto">
           <div className="max-w-7xl mx-auto">
-            <div className="bg-white shadow-lg rounded-lg p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-3xl font-bold text-gray-800">Categories</h2>
+            <div className="bg-white shadow-lg rounded-lg p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                  Categories
+                </h2>
                 <button
-                  className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded shadow transition-all duration-200"
+                  className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded shadow transition-all duration-200 w-full sm:w-auto justify-center"
                   onClick={() => {
                     showCatModal(true);
                     setModalMode("add");
@@ -99,7 +93,7 @@ const CategoryTable = () => {
               </div>
 
               <div className="overflow-x-auto">
-                <table className="min-w-full table-auto bg-white border rounded-lg shadow">
+                <table className="min-w-full table-auto bg-white border rounded-lg shadow text-sm sm:text-base">
                   <thead className="bg-gray-200">
                     <tr>
                       <th className="px-4 py-2 text-left">Type</th>
@@ -120,16 +114,16 @@ const CategoryTable = () => {
                         <tr key={cat.id} className="border-b">
                           <td className="px-4 py-2">{cat.type}</td>
                           <td className="px-4 py-2">{cat.categoryTitle}</td>
-                          <td className="px-4 py-2 space-x-3">
+                          <td className="px-4 py-2 space-y-2 sm:space-y-0 sm:space-x-3 flex flex-col sm:flex-row">
                             <button
                               onClick={() => handleEdit(cat)}
-                              className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
+                              className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded w-full sm:w-auto"
                             >
                               Edit
                             </button>
                             <button
                               onClick={() => handleDelete(cat)}
-                              className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                              className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded w-full sm:w-auto"
                             >
                               Delete
                             </button>

@@ -99,12 +99,12 @@ const ChangePasswordForm = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 p-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white bg-opacity-90 backdrop-blur-md shadow-xl rounded-lg p-8 w-full max-w-sm"
+        className="bg-white bg-opacity-90 backdrop-blur-md shadow-xl rounded-lg p-6 sm:p-8 w-full max-w-sm"
       >
-        <h2 className="text-3xl font-bold mb-2 text-center text-gray-800">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-center text-gray-800">
           Change Password
         </h2>
-        <p className="text-center text-gray-600 mb-6 text-sm">
+        <p className="text-center text-gray-600 mb-6 text-sm sm:text-base">
           For your account’s security, please enter your current password and set a strong new password.
         </p>
 
@@ -114,7 +114,7 @@ const ChangePasswordForm = () => {
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
           required
-          className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 mb-4"
+          className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 mb-4 text-sm sm:text-base"
         />
 
         <input
@@ -123,7 +123,7 @@ const ChangePasswordForm = () => {
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           required
-          className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 mb-4"
+          className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 mb-4 text-sm sm:text-base"
         />
 
         <input
@@ -132,7 +132,7 @@ const ChangePasswordForm = () => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
-          className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 mb-6"
+          className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 mb-6 text-sm sm:text-base"
         />
 
         <button

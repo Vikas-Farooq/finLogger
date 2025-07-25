@@ -38,11 +38,11 @@ const ContactForm = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 p-4">
-      <div className="w-full max-w-lg bg-white bg-opacity-90 backdrop-blur-md shadow-xl rounded-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">
+      <div className="w-full max-w-lg bg-white bg-opacity-90 backdrop-blur-md shadow-xl rounded-lg p-6 sm:p-8">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-center text-gray-800">
           Get in Touch
         </h2>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-center text-gray-600 mb-8 text-sm sm:text-base">
           Have any questions or feedback? Fill out the form below and we’ll
           respond as soon as possible.
         </p>
@@ -60,7 +60,7 @@ const ContactForm = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="John Doe"
-              className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm sm:text-base"
               required
             />
           </div>
@@ -77,7 +77,7 @@ const ContactForm = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="example@domain.com"
-              className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm sm:text-base"
               required
             />
           </div>
@@ -94,7 +94,7 @@ const ContactForm = () => {
               onChange={handleChange}
               placeholder="Write your message here..."
               rows="5"
-              className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm sm:text-base"
               required
             ></textarea>
           </div>

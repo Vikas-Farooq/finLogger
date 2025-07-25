@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import { updateProfile, sendEmailVerification, signInWithEmailAndPassword, createUserWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
+import {
+  updateProfile,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+} from "firebase/auth";
 import { auth } from "../AuthServices/AuthService";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../Loader/GlobalLoaderContext";
 import Swal from "sweetalert2";
 import loginImage from "../assets/login.png";
-
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -65,28 +72,28 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-sky-100 overflow-hidden">
-      <div className="relative w-full max-w-5xl h-5/6 rounded-xl shadow-lg overflow-hidden flex">
+    <div className="h-screen w-full flex items-center justify-center bg-sky-100 overflow-hidden px-4">
+      <div className="relative w-full max-w-5xl h-auto md:h-5/6 rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row">
         {/* Image Section */}
         <div
-          className={`hidden lg:block absolute top-0 h-full w-1/2 transition-all duration-700 ease-in-out ${
-            isLogin ? "left-1/2" : "left-0"
+          className={`hidden md:block md:w-1/2 absolute md:relative top-0 h-64 md:h-full w-full md:w-1/2 transition-all duration-700 ease-in-out ${
+            isLogin ? "md:left-1/2" : "md:left-0"
           }`}
         >
-         <img
-           src={loginImage}
+          <img
+            src={loginImage}
             alt="Auth"
-            className="w-full h-full object-contain rounded-l-xl rounded-r-none"
+            className="w-full h-full object-contain md:object-cover rounded-t-xl md:rounded-l-xl md:rounded-r-none"
           />
         </div>
 
         {/* Form Section */}
         <div
-          className={`absolute top-0 h-full w-full lg:w-1/2 bg-white flex flex-col justify-center items-center px-10 transition-all duration-700 ease-in-out ${
-            isLogin ? "left-0" : "left-1/2"
+          className={`relative md:absolute top-0 h-full w-full md:w-1/2 bg-white flex flex-col justify-center items-center px-6 md:px-10 py-8 transition-all duration-700 ease-in-out ${
+            isLogin ? "md:left-0" : "md:left-1/2"
           }`}
         >
-          <h1 className="text-3xl font-bold mb-6">
+          <h1 className="text-3xl font-bold mb-6 text-center">
             {isLogin ? "Login to Your Account" : "Create a New Account"}
           </h1>
 
@@ -141,15 +148,15 @@ const AuthForm = () => {
                   </label>
                 </div>
 
-                 <div className="mb-6 text-right">
-      <button
-        type="button"
-        onClick={() => navigate("/reset-password")}
-        className="text-blue-500 hover:underline text-sm focus:outline-none"
-      >
-        Forgot Password?
-      </button>
-    </div>
+                <div className="mb-6 text-right">
+                  <button
+                    type="button"
+                    onClick={() => navigate("/reset-password")}
+                    className="text-blue-500 hover:underline text-sm focus:outline-none"
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
               </>
             )}
 

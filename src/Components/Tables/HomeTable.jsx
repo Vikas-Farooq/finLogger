@@ -1,42 +1,31 @@
-// import { useAuth } from "../AuthServices/AuthContext";
 import { fetchAllTransactions } from "../../API/Firebase";
 import { useAuth } from "../../AuthServices/AuthContext";
 import SearchComponent from "../Filter/SearchComponent";
-import Table from "../Tables/MainTable"
-import { useState, useEffect, } from "react";
-
+import Table from "../Tables/MainTable";
+import { useState, useEffect } from "react";
 
 const HomeTable = ({ componentRef }) => {
   const [data, setData] = useState([]);
   const [allTransactions, setAllTransactions] = useState([]);
-  const {currentUser} = useAuth();
-
-  
-
+  const { currentUser } = useAuth();
 
   const handleFetchAllData = async () => {
-      if(!currentUser)
-      {
-        alert("Please login")
-        return;
-      }
-     
-      
-      const allTransactions = await fetchAllTransactions(currentUser.uid);
-      setData(allTransactions);
-      setAllTransactions(allTransactions);
+    if (!currentUser) {
+      alert("Please login");
+      return;
+    }
 
-      // console.log(allTransactions, "All Transactionsmm");
-      
-    };
-  
-    useEffect(() => {
-      handleFetchAllData();
-    }, [currentUser]);
+    const allTransactions = await fetchAllTransactions(currentUser.uid);
+    setData(allTransactions);
+    setAllTransactions(allTransactions);
+  };
 
+  useEffect(() => {
+    handleFetchAllData();
+  }, [currentUser]);
 
   const handleSearchByKeyword = (keyword) => {
-       if (keyword === "") {
+    if (keyword === "") {
       setData(allTransactions);
     } else {
       const filtered = allTransactions.filter((item) =>
@@ -47,9 +36,9 @@ const HomeTable = ({ componentRef }) => {
       );
       setData(filtered);
     }
-  }
+  };
 
-  const getDateItems = (startDate,endDate) => {
+  const getDateItems = (startDate, endDate) => {
     if (!startDate || !endDate) {
       alert("Please select both start and end dates.");
       return;
@@ -64,21 +53,17 @@ const HomeTable = ({ componentRef }) => {
     });
 
     setData(filteredDates);
-    // console.log(filteredDates, "Filtered Dates");
   };
 
-  
-
   return (
-    <div>
-           <div className="flex justify-center mb-4">
-           <SearchComponent
-           onSearchByKeywod={handleSearchByKeyword} 
-           getDateItems={getDateItems}/>
+    <div className="w-full">
+      <div className="flex justify-center mb-4">
+        <SearchComponent onSearchByKeywod={handleSearchByKeyword} getDateItems={getDateItems} />
       </div>
-      
- <div ref={componentRef}>
-      <Table transactions={data} /></div>
+
+      <div ref={componentRef}>
+        <Table transactions={data} />
+      </div>
     </div>
   );
 };

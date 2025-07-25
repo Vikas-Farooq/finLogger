@@ -12,12 +12,24 @@ const SettingsModal = ({ onClose }) => {
 
   // Lock scroll when modal is open
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.overflow = 'hidden';
+    document.body.style.width = '100%';
+
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollY);
     };
   }, []);
-
   const handleChangePassword = () => {
     navigate("/change-password");
   };
@@ -63,18 +75,18 @@ const SettingsModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-black/40 z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md relative">
-        <h2 className="text-2xl font-bold mb-2 text-center text-black dark:text-white">
+    <div className="fixed inset-0 flex justify-center items-center bg-black/40 z-50 overflow-y-auto">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 sm:p-6 w-11/12 max-w-md relative mx-2 my-4">
+        <h2 className="text-xl sm:text-2xl font-bold mb-2 text-center text-black dark:text-white">
           Settings
         </h2>
-        <p className="text-center text-gray-600 dark:text-gray-300 mb-6 text-sm">
+        <p className="text-center text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 text-sm">
           Manage your account preferences and personalize your Money Manager experience.
         </p>
 
         <CurrencySelector />
 
-        <div className="space-y-4 mt-4">
+        <div className="space-y-3 sm:space-y-4 mt-4">
           <button
             onClick={handleContactUsForm}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition"
@@ -106,7 +118,7 @@ const SettingsModal = ({ onClose }) => {
           </button>
         </div>
 
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-6 text-center">
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-4 sm:mt-6 text-center">
           For any assistance or feedback, please use the Contact Us option above. We’re here to support you.
         </p>
       </div>
